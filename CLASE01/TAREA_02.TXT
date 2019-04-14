@@ -1,0 +1,9 @@
+TAREA_02-APELLIDO1-APELLIDO2.SQL
+
+Desarrollar un procedimiento para 
+averiguar la cantidad de cuentas
+en soles y dolares de una sucursal.
+
+
+ESQUEMA: EUREKA
+

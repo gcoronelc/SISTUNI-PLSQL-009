@@ -1,0 +1,7 @@
+TAREA_01-APELLIDO1-APELLIDO2.SQL
+
+Desarrollar una función que retorne el 
+nombre completo de un cliente.
+
+ESQUEMA: EUREKA
+
