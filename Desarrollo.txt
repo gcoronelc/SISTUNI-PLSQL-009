@@ -12,26 +12,27 @@ clase 01
 
 clase 02
 ========================================
-1.- Estructuras de Control
-2.- Estructura de datos: Registros y Colecciones
-3.- Sequencias
-4.- Tablas Temporales
+1.- Estructuras de control
+2.- Tablas temporales
+3.- Estructura de datos
+4.- Excepciones
+5.- SQL en PL/SQL: SQL Dinamico, RETURNING
 
 
 clase 03
 ========================================
-1.- Excepciones (Para la Casa)
-2.- SQL en PL/SQL
-3.- Cursores
-4.- Paquetes
-5.- Transacciones
+1.- 
+2.- 
+3.- 
+4.- 
+5.- 
 
 clase 04
 ========================================
-1.- Funcion que retorna cursor
-2.- Funcion que retorna una tabla
-3.- Transacciones que procesan varias filas
-4.- Triggers
+1.- 
+2.- 
+3.- 
+4.- 
 
 
 

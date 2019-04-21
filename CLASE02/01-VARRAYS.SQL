@@ -3,8 +3,8 @@
 
 DECLARE
 	-- Definimos los tipos de datos
-	TYPE AlumnosArray IS VARRAY(20) OF VARCHAR2(100);
-	TYPE NotasArray IS VARRAY(20) OF NUMBER(4);
+	TYPE AlumnosArray IS VARRAY(15) OF VARCHAR2(100);
+	TYPE NotasArray IS VARRAY(15) OF NUMBER(4);
 	-- Definiendo las variables
 	alumnos AlumnosArray;
 	notas   NotasArray;
@@ -19,6 +19,7 @@ BEGIN
 		dbms_output.PUT_LINE( alumnos(i) || ' - ' || notas(i) );
 	END LOOP;
 END;
+/
 
 
 
@@ -36,22 +37,34 @@ BEGIN
 	alumnos := AlumnosArray();
   notas := NotasArray();
 	-- Mostrando los arreglos
-  dbms_output.PUT_LINE( 'Tamaño: ' || alumnos.count );
+  dbms_output.PUT_LINE( 'Limite: ' || alumnos.LIMIT );
+  dbms_output.PUT_LINE( 'Tamaño: ' || alumnos.COUNT );
 	FOR i IN 1 .. alumnos.count LOOP
 		dbms_output.PUT_LINE( alumnos(i) || ' - ' || notas(i) );
 	END LOOP;
 	-- Un nuevo elemento
+  dbms_output.PUT_LINE( '--------------------------' );
 	alumnos.EXTEND;
-	alumnos(alumnos.COUNT) := 'PATRICIA';
+	alumnos(alumnos.LAST) := 'PATRICIA';
 	notas.EXTEND;
-	notas(notas.COUNT) := 19;
+	notas(notas.LAST) := 19;
+  dbms_output.PUT_LINE( 'Limite: ' || alumnos.LIMIT );
+  dbms_output.PUT_LINE( 'Tamaño: ' || alumnos.COUNT );
+	-- Un nuevo elemento
+  dbms_output.PUT_LINE( '--------------------------' );
+	alumnos.EXTEND;
+	alumnos(alumnos.LAST) := 'GUSTAVO';
+	notas.EXTEND;
+	notas(notas.LAST) := 20;
+  dbms_output.PUT_LINE( 'Limite: ' || alumnos.LIMIT );
+  dbms_output.PUT_LINE( 'Tamaño: ' || alumnos.COUNT );  
   -- Mostrando los arreglos
   dbms_output.PUT_LINE( 'Tamaño: ' || alumnos.count );
   FOR i IN 1 .. alumnos.count LOOP
     dbms_output.PUT_LINE( alumnos(i) || ' - ' || notas(i) );
   END LOOP;	
 END;
-
+/
 
 
 -- Ejemplo 03
@@ -65,16 +78,18 @@ DECLARE
 BEGIN
 	V_EMPLEADOS := VARRAY_EMPLEADOS();
 	DBMS_OUTPUT.PUT_LINE('TAMAÑO INICIAL: ' || V_EMPLEADOS.COUNT);
+  -- Carga el arreglo con empleados
 	FOR REC IN (SELECT * FROM RECURSOS.EMPLEADO) LOOP
 		V_EMPLEADOS.EXTEND;
-		V_CONT := V_EMPLEADOS.COUNT;
+		V_CONT := V_EMPLEADOS.LAST;
 		V_EMPLEADOS(V_CONT) := REC;
 	END LOOP;
 	DBMS_OUTPUT.PUT_LINE('TAMAÑO FINAL: ' || V_EMPLEADOS.COUNT);
+  -- Muestra el arreglo de empleados
 	FOR I IN V_EMPLEADOS.FIRST..V_EMPLEADOS.LAST LOOP
 		DBMS_OUTPUT.PUT_LINE( I || '.- ' || V_EMPLEADOS(I).NOMBRE);
 	END LOOP;
 END;
-
+/
 
 

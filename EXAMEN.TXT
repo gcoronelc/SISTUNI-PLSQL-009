@@ -9,7 +9,8 @@ Presentar una caso
 - Script de carga de datos
 - Programar un Paquete de un CRUD
 - Programar un proceso simple (Transacción)
-- Consulta de resumen de datos (2 consultas complejas de varias tablas)
+- Consulta de resumen de datos 
+  (2 consultas complejas de varias tablas con SP y Tablas Temporales)
 - Proceso complejo. Transacción para procesar varias filas.
   Ejemplo: factura con varios items, esquema: VENTAS.
   
