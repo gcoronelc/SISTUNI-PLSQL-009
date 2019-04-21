@@ -1,0 +1,45 @@
+clase 01
+========================================
+1.- Presentación
+2.- Contexto
+3.- Clonar el repositorio
+4.- Actualizar el repositorio
+5.- Crear una base de datos
+6.- Herramientas de trabajo
+7.- Esquemas Ejemplo
+8.- Fundamentos del lenguaje
+
+
+clase 02
+========================================
+1.- Estructuras de Control
+2.- Estructura de datos: Registros y Colecciones
+3.- Sequencias
+4.- Tablas Temporales
+
+
+clase 03
+========================================
+1.- Excepciones (Para la Casa)
+2.- SQL en PL/SQL
+3.- Cursores
+4.- Paquetes
+5.- Transacciones
+
+clase 04
+========================================
+1.- Funcion que retorna cursor
+2.- Funcion que retorna una tabla
+3.- Transacciones que procesan varias filas
+4.- Triggers
+
+
+
+
+
+
+
+
+
+
+
