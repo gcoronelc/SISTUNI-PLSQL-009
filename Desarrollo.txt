@@ -23,9 +23,9 @@ clase 03
 ========================================
 1.- Database Link
 2.- Cursores
-3.- 
-4.- 
-5.- 
+3.- Paquetes
+4.- Transacciones
+5.- Manejo de datos con cadenas
 
 CODIGO DE ERROR: ORA-06550, PLS-00225
 

@@ -26,7 +26,7 @@ begin
 	from eureka.cuenta
 	where chr_cuencodigo = p_cuenta
 	for update;
-  -- Retardo
+  -- Retardo (solo para la demostración)
   APEX_UTIL.PAUSE(5);  
   -- Verificación
 	if v_estado != 'ACTIVO' then
