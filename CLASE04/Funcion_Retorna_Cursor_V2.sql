@@ -30,7 +30,7 @@ CREATE OR REPLACE PACKAGE BODY SCOTT.PKG_UTIL2 AS
     FOR   V_SELECT
     USING P_DEPTNO;
     
-    RETURN V_RETURNCURSOR;
+    RETURN V_RETURN_CURSOR;
     
   END;
 
@@ -40,7 +40,7 @@ END PKG_UTIL2;
 
 
 declare
-  v_cur PKG_UTIL2.gencur;
+  v_cur scott.PKG_UTIL2.gen_cursor;
   r     scott.emp%rowtype;
 begin
   v_cur := scott.PKG_UTIL2.f_emp_x_dep(30);
@@ -52,10 +52,10 @@ end;
 
 
 declare
-  v_cur PKG_UTIL2.gencur;
-  r     emp%rowtype;
+  v_cur scott.PKG_UTIL2.gen_cursor;
+  r     scott.emp%rowtype;
 begin
-  v_cur := PKG_UTIL2.f_emp_x_dep(30);
+  v_cur := scott.PKG_UTIL2.f_emp_x_dep(30);
   fetch v_cur into r;
   while v_cur%found loop
     dbms_output.put_line( to_char(v_cur%rowcount) || ' ' || r.ename );
@@ -65,7 +65,12 @@ begin
 end;
 /
 
+
+
 GRANT EXECUTE ON SCOTT.PKG_UTIL2 TO APPSCOTT;
+
+
+
 
 
 

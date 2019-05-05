@@ -9,9 +9,6 @@ CREATE OR REPLACE PACKAGE SCOTT.PKG_UTIL IS
 
   -- Tipo de dato CURSOR
   TYPE GEN_CURSOR IS REF CURSOR;
-  
-  -- Tipo Registro
-  REC_EMP SCOTT.EMP%ROWTYPE;  
 
   -- Retorna los empleados de un departamento
   FUNCTION F_EMP_X_DEP( V_DEPTNO NUMBER ) RETURN GEN_CURSOR;
