@@ -33,9 +33,9 @@ CODIGO DE ERROR: ORA-06550, PLS-00225
 
 clase 04
 ========================================
-1.- 
-2.- 
-3.- 
+1.- Manejo de cursores
+2.- Triggers
+3.- Proyectos
 4.- 
 
 
