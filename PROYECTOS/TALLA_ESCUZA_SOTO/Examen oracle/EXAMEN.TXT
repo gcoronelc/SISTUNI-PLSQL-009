@@ -1,0 +1,17 @@
+EXAMEN
+=========================
+
+Presentar una caso
+
+1 Explicar el caso (6 tablas mínimo)
+2 Modelar el caso 
+3 Generar el script de creación del esquema
+4 Script de carga de datos
+5 Programar un Paquete de un CRUD
+6 Programar un proceso simple (Transacción)
+7 Consulta de resumen de datos 
+8 Proceso complejo. Transacción para procesar varias filas.
+  
+
+
+

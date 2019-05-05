@@ -1,0 +1,171 @@
+--INSERTAR
+
+DECLARE
+    P_CL_DNI  VARCHAR2(8);
+    P_CL_NOMBRE VARCHAR2(25);
+    P_CL_TELEFONO VARCHAR2(9);
+    P_CL_SEXO VARCHAR2(1);
+    P_CL_FECHA_NAC DATE;
+    P_CL_DIRECCION VARCHAR2(50);
+    P_COD_RESPUESTA  NUMBER;
+    P_MENSAJE VARCHAR2(200);
+BEGIN
+  
+    P_CL_DNI :='43408368';
+    P_CL_NOMBRE :='HARLEY PINEDO GOMEZ';
+    P_CL_TELEFONO :='948995536';
+    P_CL_SEXO :='M';
+    P_CL_FECHA_NAC :='20/01/1986';
+    P_CL_DIRECCION :='JR. LOS ZAFIROS';
+    P_COD_RESPUESTA  := NULL;
+    P_MENSAJE :=NULL;  
+
+  PCK_CLIENTE.INSERTAR_CLIENTE (  
+    P_CL_DNI,
+    P_CL_NOMBRE,
+    P_CL_TELEFONO,
+    P_CL_SEXO,
+    P_CL_FECHA_NAC,
+    P_CL_DIRECCION,
+    P_COD_RESPUESTA,
+    P_MENSAJE) ;   
+    
+     dbms_output.put_line(P_COD_RESPUESTA || ', ' || P_MENSAJE);
+END;
+/
+
+----------------------------------------------------------------------------------------
+---ACTUALIZAR
+
+DECLARE
+    P_CL_IDCLIENTE  NUMBER;
+    P_CL_NOMBRE VARCHAR2(25);
+    P_CL_TELEFONO VARCHAR2(9);
+    P_CL_SEXO VARCHAR2(1);
+    P_CL_FECHA_NAC  DATE;
+    P_CL_DIRECCION VARCHAR2(50);
+    P_COD_RESPUESTA NUMBER;
+    P_MENSAJE VARCHAR2(200);
+BEGIN
+
+    P_CL_IDCLIENTE := 6;
+    P_CL_NOMBRE := 'HARLEY P PINEDO GOMEZ';
+    P_CL_TELEFONO := '948995566';
+    P_CL_SEXO := 'F';
+    P_CL_FECHA_NAC  := '20/02/1987';
+    P_CL_DIRECCION := 'SSSSSSS';
+    P_COD_RESPUESTA := NULL;
+    P_MENSAJE := NULL;  
+
+  PCK_CLIENTE.MODIFICAR_CLIENTE (  
+    P_CL_IDCLIENTE,
+    P_CL_NOMBRE,
+    P_CL_TELEFONO,
+    P_CL_SEXO,
+    P_CL_FECHA_NAC,
+    P_CL_DIRECCION,
+    P_COD_RESPUESTA,
+    P_MENSAJE) ;  
+    
+     dbms_output.put_line(P_COD_RESPUESTA || ', ' || P_MENSAJE);
+END;
+/
+
+----------------------------------------------------------------------------------
+--ELIMINAR
+
+DECLARE
+    P_CL_IDCLIENTE  NUMBER;
+    P_COD_RESPUESTA NUMBER;
+    P_MENSAJE   VARCHAR2(200);
+BEGIN
+  P_CL_IDCLIENTE := 6;
+  P_COD_RESPUESTA := NULL;
+  P_MENSAJE := NULL;
+
+  PCK_CLIENTE.ELIMINAR_CLIENTE (  
+    P_CL_IDCLIENTE,
+    P_COD_RESPUESTA,
+    P_MENSAJE) ;  
+
+ dbms_output.put_line(P_COD_RESPUESTA || ', ' || P_MENSAJE);
+END;
+/
+
+------------------------------------------------------------------------------------------
+
+--LEER SOLO REGISTRO
+
+DECLARE
+    P_CL_IDCLIENTE    NUMBER;
+    P_CURSOR SYS_REFCURSOR ;
+    P_COD_RESPUESTA  NUMBER;
+    P_MENSAJE VARCHAR2(200);   
+  reg CLIENTE%rowtype;
+BEGIN
+    P_CL_IDCLIENTE := 5;
+    P_CURSOR := NULL;
+    P_COD_RESPUESTA := NULL;
+    P_MENSAJE :=NULL;
+
+  PCK_CLIENTE.LISTAR_CLIENTE_ID (  
+    P_CL_IDCLIENTE,
+    P_CURSOR,
+    P_COD_RESPUESTA,
+    P_MENSAJE);  
+
+  LOOP
+     if P_CURSOR%isopen then
+          FETCH P_CURSOR INTO reg;
+          EXIT WHEN P_CURSOR%NOTFOUND;
+          -- Mostrar fila
+          dbms_output.put_line(reg.CL_DNI || ', ' || reg.CL_NOMBRE);
+           close P_CURSOR;
+           
+      ELSE
+        EXIT;
+      end if;
+    
+    -- Leer fila
+ 
+  END LOOP;
+   dbms_output.put_line(P_COD_RESPUESTA || ', ' || P_MENSAJE);
+END;
+/
+
+=================================================================================
+
+--LEER VARIOS REGISTROS
+
+DECLARE
+    P_CURSOR  SYS_REFCURSOR;
+    P_COD_RESPUESTA   NUMBER;
+    P_MENSAJE  VARCHAR2(200); 
+    reg CLIENTE%rowtype;
+  
+BEGIN
+    P_CURSOR  := NULL;
+    P_COD_RESPUESTA  := NULL;
+    P_MENSAJE  := NULL;
+
+  PCK_CLIENTE.LISTAR_CLIENTES (     
+    P_CURSOR,
+    P_COD_RESPUESTA ,
+    P_MENSAJE );
+  LOOP
+     if P_CURSOR%isopen then
+          FETCH P_CURSOR INTO reg;
+          EXIT WHEN P_CURSOR%NOTFOUND;
+          -- Mostrar fila
+          dbms_output.put_line(reg.CL_IDCLIENTE || ', ' || reg.CL_DNI || ', ' || reg.CL_NOMBRE || ', ' || reg.CL_TELEFONO);        
+           
+      ELSE
+        EXIT;
+      end if;    
+    -- Leer fila 
+  END LOOP;
+  dbms_output.put_line(P_COD_RESPUESTA || ', ' || P_MENSAJE);
+END;
+/
+
+

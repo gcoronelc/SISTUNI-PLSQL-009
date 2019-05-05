@@ -1,0 +1,100 @@
+create or replace procedure SP_INSERTAR_DVENTA(
+  P_DV_IDVENTA IN NUMBER,
+  P_DV_IDPRODUCTO IN NUMBER,
+  P_DV_CANTIDAD IN NUMBER,
+  P_DV_PRECIO IN NUMBER,
+  P_MENSAJE OUT NOCOPY VARCHAR2
+)
+IS
+  V_DV_IDVENTA      NUMBER:=0;
+  V_DV_IDPRODUCTO   NUMBER:=0;
+  V_DV_CANTIDAD     NUMBER:=0;
+  V_N_STOCK         NUMBER:=0;
+  V_OK              NUMBER:=0;
+  BEGIN
+  -- VERIFICAR VENTA
+  select count(VT_IDVENTA)
+  into   V_DV_IDVENTA
+  from   VENTA
+  where  VT_IDVENTA = P_DV_IDVENTA;  
+
+  if V_DV_IDVENTA = 0 then
+     P_MENSAJE := 'NO SE ENCONTRO VENTA PARA REGISTRAR';
+     return;
+  end if;
+
+  -- VERIFICAR PRODUCTO
+  select count(PR_IDPRODUCTO)
+  into   V_DV_IDPRODUCTO
+  from   PRODUCTO
+  where  PR_IDPRODUCTO   = P_DV_IDPRODUCTO;
+
+  if V_DV_IDPRODUCTO = 0 then
+     P_MENSAJE := 'EL PRODUCTO NO SE ENCUENTRA REGISTRADO';
+     return;
+  end if;
+
+   -- VERIFICAR STOCK
+  select PR_STOCK
+  into   V_DV_CANTIDAD
+  from   PRODUCTO
+  where  PR_IDPRODUCTO   = P_DV_IDPRODUCTO;
+
+  if P_DV_CANTIDAD > V_DV_CANTIDAD then
+     P_MENSAJE := 'NO HAY STOCK PARA VENTA';
+     return;
+  end if;  
+
+  -- INSERTANDO DETALLE_VENTA
+  INSERT INTO DETALLE_VENTA
+  VALUES (P_DV_IDVENTA, P_DV_IDPRODUCTO, P_DV_CANTIDAD, P_DV_PRECIO);
+  V_OK := sql%rowcount;
+  commit;  
+
+  if V_OK = 0 then
+     P_MENSAJE := 'DETALLE_VENTA NO REGISTRADA';
+  else
+     P_MENSAJE := 'DETALLE_VENTA REGISTRADA';
+
+     SELECT PR_STOCK 
+     INTO V_N_STOCK
+     FROM PRODUCTO 
+     WHERE PR_IDPRODUCTO   = P_DV_IDPRODUCTO
+     for update;
+
+     UPDATE PRODUCTO
+     SET  
+     PR_STOCK= V_N_STOCK - P_DV_CANTIDAD       
+     WHERE PR_IDPRODUCTO  = P_DV_IDPRODUCTO;      
+  end if;
+
+exception
+   when OTHERS then
+        dbms_output.put_line(SQLERRM);
+end SP_INSERTAR_DVENTA;
+
+
+
+--PROBAR PROCEDIMIENTO    
+declare
+  V_DV_IDVENTA integer;
+  V_DV_IDPRODUCTO integer;
+  V_DV_CANTIDAD integer;
+  V_DV_PRECIO integer;
+  V_MENSAJE  VARCHAR2(100);
+
+begin
+  -- INGRESANDO DATOS 
+  V_DV_IDVENTA := 1;
+  V_DV_IDPRODUCTO := 1;
+  V_DV_CANTIDAD := 15;
+  V_DV_PRECIO := 300;
+  
+  -- PROCESO
+  SP_INSERTAR_DVENTA(V_DV_IDVENTA, V_DV_IDPRODUCTO, V_DV_CANTIDAD, V_DV_PRECIO, V_MENSAJE);
+  
+  -- MOSTRAR MENSAJE
+  dbms_output.put_line(V_MENSAJE);
+end;
+/
+
