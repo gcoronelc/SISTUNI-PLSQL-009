@@ -1,49 +1,49 @@
--- FUNCION QUE RETORNA CURSOR - VERSION 2
-
 -- =======================================================
 -- DEFINICION DEL PAQUETE
 -- =======================================================
 
-CREATE OR REPLACE PACKAGE SCOTT.PKG_UTIL2 IS
+CREATE OR REPLACE PACKAGE SCOTT.UTIL2 IS
 
-  TYPE GEN_CURSOR IS REF CURSOR;
+  TYPE GENCUR IS REF CURSOR;
+  
+  REC_EMP SCOTT.EMP%ROWTYPE; 
 
-  FUNCTION F_EMP_X_DEP( P_DEPTNO NUMBER ) RETURN GEN_CURSOR;
+  FUNCTION F_EMP_X_DEP( P_DEPTNO NUMBER ) RETURN GENCUR;
 
-END PKG_UTIL2;
+END UTIL2;
 /
 
 -- =======================================================
 -- IMPLEMENTACION DEL PAQUETE
 -- =======================================================
-CREATE OR REPLACE PACKAGE BODY SCOTT.PKG_UTIL2 AS
+CREATE OR REPLACE PACKAGE BODY SCOTT.UTIL2 AS
 
-  FUNCTION F_EMP_X_DEP( P_DEPTNO NUMBER ) RETURN GEN_CURSOR
+  FUNCTION F_EMP_X_DEP( P_DEPTNO NUMBER ) RETURN GENCUR
   IS
-    V_RETURN_CURSOR GEN_CURSOR;
+    V_RETURNCURSOR GENCUR;
     V_SELECT VARCHAR(500);
   BEGIN
     
     V_SELECT := 'SELECT * FROM SCOTT.EMP WHERE DEPTNO = :CODIGO';
     
-    OPEN  V_RETURN_CURSOR 
-    FOR   V_SELECT
+    OPEN V_RETURNCURSOR 
+    FOR V_SELECT
     USING P_DEPTNO;
     
     RETURN V_RETURNCURSOR;
     
   END;
 
-END PKG_UTIL2;
+END UTIL2;
 /
 
 
 
 declare
-  v_cur PKG_UTIL2.gencur;
+  v_cur util2.gencur;
   r     scott.emp%rowtype;
 begin
-  v_cur := scott.PKG_UTIL2.f_emp_x_dep(30);
+  v_cur := scott.util2.f_emp_x_dep(30);
   fetch v_cur into r;
   dbms_output.put_line( to_char(v_cur%rowcount) || ' ' || r.ename );
   close v_cur;
@@ -52,10 +52,10 @@ end;
 
 
 declare
-  v_cur PKG_UTIL2.gencur;
+  v_cur util2.gencur;
   r     emp%rowtype;
 begin
-  v_cur := PKG_UTIL2.f_emp_x_dep(30);
+  v_cur := util2.f_emp_x_dep(30);
   fetch v_cur into r;
   while v_cur%found loop
     dbms_output.put_line( to_char(v_cur%rowcount) || ' ' || r.ename );
@@ -65,7 +65,7 @@ begin
 end;
 /
 
-GRANT EXECUTE ON SCOTT.PKG_UTIL2 TO APPSCOTT;
+GRANT EXECUTE ON SCOTT.UTIL2 TO APPSCOTT;
 
 
 
