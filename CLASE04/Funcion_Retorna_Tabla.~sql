@@ -1,12 +1,11 @@
 -- ============================================
--- Funcion que retorna una resultado (Tabla)
+-- Funcion que retorna una resultado
 -- ============================================
 
 CREATE TYPE SCOTT.MYTYPE AS OBJECT(
   FIELD1 NUMBER,
   FIELD2 VARCHAR2(50)
 );
-
 
 CREATE TYPE SCOTT.MYTYPELIST AS TABLE OF SCOTT.MYTYPE;
 
@@ -49,8 +48,5 @@ END FN_GET_EMPS2;
 
 Select FIELD1 CODIGO, FIELD2 NOMBRE
 From Table(SCOTT.FN_GET_EMPS2(20));
-
-
-
 
 
